@@ -2,7 +2,7 @@
 
 👋 **Introdução**
 
-Bem-vindo(a) ao teste técnico para desenvolvedores(as) frontend da Orbesoft! Este desafio tem como objetivo avaliar suas habilidades como desenvolvedor(a) frontend.
+Bem-vindo(a) ao teste técnico para desenvolvedor fullstack da Jack Experts!
 
 ## 🛠️ Ferramentas e Tecnologias
 
