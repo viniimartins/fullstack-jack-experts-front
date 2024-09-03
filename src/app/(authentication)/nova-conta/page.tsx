@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { FormLogin } from './form'
 
 export const metadata: Metadata = {
-  title: 'Login',
+  title: 'Criar Conta',
 }
 
 export default function NewAccount() {
@@ -19,8 +19,8 @@ export default function NewAccount() {
       <div className="mx-auto w-full max-w-md">
         <FormLogin />
         <div className="mt-4 text-center text-sm">
-          <Link href="/new-account" className="underline">
-            Nova Conta
+          <Link href="/login" className="underline">
+            Login
           </Link>
         </div>
       </div>

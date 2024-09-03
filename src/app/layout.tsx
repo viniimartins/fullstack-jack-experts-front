@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: {
     template: `TASKS | %s`,
-    default: 'Panel',
+    default: 'Painel',
   },
   description: 'Organize suas tarefas de maneira simples e eficiente!',
 }

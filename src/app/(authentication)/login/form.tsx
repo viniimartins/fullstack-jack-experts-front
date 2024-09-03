@@ -60,7 +60,7 @@ export function FormLogin() {
     const callbackUrl = searchParams.get('callbackUrl')
 
     if (res?.ok) {
-      return router.replace(callbackUrl || '/panel')
+      return router.replace(callbackUrl || '/painel')
     }
 
     toast({

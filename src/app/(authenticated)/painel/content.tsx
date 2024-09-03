@@ -52,8 +52,15 @@ export function Content() {
         </Button>
 
         {!tasks?.length && (
-          <span className="text-xl font-semibold">
-            Parece que voce nao tem nenhuma tarefa
+          <span className="text-xl font-normal">
+            📝 Nenhuma tarefa encontrada. Adicione uma nova{' '}
+            <span
+              className="text-2xl font-bold text-muted-foreground underline hover:cursor-pointer"
+              onClick={() => formDialogActions.open()}
+            >
+              task
+            </span>{' '}
+            para começar!
           </span>
         )}
 

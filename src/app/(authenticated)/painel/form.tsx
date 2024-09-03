@@ -23,8 +23,12 @@ import { useUpdateTask } from './hooks/use-update-task'
 import { Task } from './types'
 
 const taskSchema = z.object({
-  title: z.string().min(1, 'Senha é obrigatória'),
-  content: z.string().min(1, 'Senha é obrigatória'),
+  title: z
+    .string({ required_error: 'Este campo é obrigatório.' })
+    .min(1, { message: 'Este campo é obrigatório.' }),
+  content: z
+    .string({ required_error: 'Este campo é obrigatório.' })
+    .min(1, { message: 'Este campo é obrigatório.' }),
 })
 
 interface ITaskForm extends z.infer<typeof taskSchema> {}
@@ -91,9 +95,9 @@ export function FormOrganization(props: Props) {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Title</FormLabel>
+                <FormLabel>Título</FormLabel>
                 <FormControl>
-                  <Input placeholder="Adicione o nome da task" {...field} />
+                  <Input placeholder="Digite o título da tarefa" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -105,9 +109,9 @@ export function FormOrganization(props: Props) {
             name="content"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Conteudo</FormLabel>
+                <FormLabel>Descrição</FormLabel>
                 <FormControl>
-                  <Input placeholder="Adicione o conteudo" {...field} />
+                  <Input placeholder="Digite o conteúdo da tarefa" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

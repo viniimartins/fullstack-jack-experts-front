@@ -2,8 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { LoaderCircle } from 'lucide-react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { signIn } from 'next-auth/react'
+import { useRouter} from 'next/navigation'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
@@ -181,7 +180,7 @@ export function FormLogin() {
           />
 
           <Button type="submit" className="flex w-full gap-2">
-            Login
+            Salvar
             {isLoading && <LoaderCircle size={18} className="animate-spin" />}
           </Button>
         </form>

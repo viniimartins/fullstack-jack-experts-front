@@ -11,5 +11,5 @@ export default withAuth({
 })
 
 export const config = {
-  matcher: ['/panel'],
+  matcher: ['/painel'],
 }
