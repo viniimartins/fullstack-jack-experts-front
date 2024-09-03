@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import { ModalActions } from '@/types/modal'
 
 import { useCreateTask } from './hooks/use-create-task'
@@ -111,7 +112,10 @@ export function FormOrganization(props: Props) {
               <FormItem>
                 <FormLabel>Descrição</FormLabel>
                 <FormControl>
-                  <Input placeholder="Digite o conteúdo da tarefa" {...field} />
+                  <Textarea
+                    placeholder="Digite o conteúdo da tarefa"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

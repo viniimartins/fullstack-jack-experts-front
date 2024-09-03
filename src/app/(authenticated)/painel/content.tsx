@@ -3,6 +3,16 @@
 import { DialogDescription } from '@radix-ui/react-dialog'
 import { MoreHorizontal } from 'lucide-react'
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -17,6 +27,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { useModal } from '@/hooks/use-modal'
 
 import { FormOrganization } from './form'
@@ -32,13 +43,30 @@ export function Content() {
     queryKey,
   })
 
-  const { mutateAsync: handleDeleteTask } = useDeleteTask({ queryKey })
+  const { mutateAsync: deleteTask } = useDeleteTask({ queryKey })
 
   const {
     actions: formDialogActions,
     isOpen: formDialogIsOpen,
     target: toUpdateTask,
   } = useModal<Task>()
+
+  const {
+    actions: alertDialogActions,
+    isOpen: alertDialogIsOpen,
+    target: toDeleteTask,
+  } = useModal<Task>()
+
+  function handleDeleteTask() {
+    if (toDeleteTask) {
+      deleteTask(
+        { taskId: toDeleteTask.id },
+        {
+          onSuccess: () => alertDialogActions.close(),
+        },
+      )
+    }
+  }
 
   return (
     <>
@@ -48,17 +76,17 @@ export function Content() {
           variant="outline"
           onClick={() => formDialogActions.open()}
         >
-          Adicionar Task
+          Adicionar TASK
         </Button>
 
         {!tasks?.length && (
           <span className="text-xl font-normal">
-            📝 Nenhuma tarefa encontrada. Adicione uma nova{' '}
+            📝 Nenhuma TASK encontrada. Adicione uma nova{' '}
             <span
               className="text-2xl font-bold text-muted-foreground underline hover:cursor-pointer"
               onClick={() => formDialogActions.open()}
             >
-              task
+              TASK
             </span>{' '}
             para começar!
           </span>
@@ -95,7 +123,7 @@ export function Content() {
                       <DropdownMenuItem
                         onClick={() => formDialogActions.open(task)}
                       >
-                        Update
+                        Editar
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         onClick={() =>
@@ -109,7 +137,7 @@ export function Content() {
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         onClick={() => {
-                          handleDeleteTask({ taskId: id })
+                          alertDialogActions.open(task)
                         }}
                       >
                         Deletar
@@ -120,7 +148,9 @@ export function Content() {
               </CardHeader>
 
               <CardContent>
-                <p className="text-base text-muted-foreground">{content}</p>
+                <ScrollArea className="h-12">
+                  <p className="text-base text-muted-foreground">{content}</p>
+                </ScrollArea>
               </CardContent>
             </Card>
           )
@@ -128,15 +158,15 @@ export function Content() {
       </div>
 
       <Dialog open={formDialogIsOpen} onOpenChange={formDialogActions.close}>
-        <DialogContent>
+        <DialogContent className="mx-auto w-full max-w-md sm:w-11/12 md:max-w-lg">
           <DialogHeader>
             <DialogTitle>
-              {toUpdateTask ? 'Editar Task' : 'Adicionar Task'}
+              {toUpdateTask ? 'Editar TASK' : 'Adicionar TASK'}
             </DialogTitle>
             <DialogDescription className="text-muted-foreground">
               {toUpdateTask
-                ? 'Altere os dados da task existente.'
-                : 'Preencha os dados para adicionar uma nova task.'}
+                ? 'Altere os dados da TASK existente.'
+                : 'Preencha os dados para adicionar uma nova TASK.'}
             </DialogDescription>
           </DialogHeader>
 
@@ -149,6 +179,28 @@ export function Content() {
           </div>
         </DialogContent>
       </Dialog>
+
+      <AlertDialog
+        open={alertDialogIsOpen}
+        onOpenChange={alertDialogActions.close}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Confirmar Exclusão de TASK</AlertDialogTitle>
+            <AlertDialogDescription>
+              Você está prestes a excluir uma tarefa. Esta ação é permanente e
+              não poderá ser desfeita. Tem certeza de que deseja continuar com a
+              exclusão?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDeleteTask}>
+              Confirmar Exclusão
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   )
 }
