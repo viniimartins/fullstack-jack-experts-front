@@ -21,10 +21,15 @@ import { useModal } from '@/hooks/use-modal'
 
 import { FormOrganization } from './form'
 import { useGetTasks } from './hooks/use-get-tasks'
+import { useToggleStatusTask } from './hooks/use-toggle-status-task'
 import { Task } from './types'
 
 export function Content() {
   const { data: tasks, queryKey } = useGetTasks()
+
+  const { mutateAsync: handleToggleStatusTask } = useToggleStatusTask({
+    queryKey,
+  })
 
   const {
     actions: formDialogActions,
@@ -55,7 +60,12 @@ export function Content() {
                       data-completed={completed}
                       className="h-2 w-2 rounded-full bg-red-500 data-[completed=true]:bg-green-500"
                     />
-                    <span className="text-2xl">{title}</span>
+                    <span
+                      data-completed={completed}
+                      className="text-2xl data-[completed=true]:line-through"
+                    >
+                      {title}
+                    </span>
                   </CardTitle>
 
                   <DropdownMenu>
@@ -71,7 +81,17 @@ export function Content() {
                       >
                         Update
                       </DropdownMenuItem>
-                      <DropdownMenuItem>Delete</DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() =>
+                          handleToggleStatusTask({
+                            completed: !completed,
+                            taskId: id,
+                          })
+                        }
+                      >
+                        {completed ? 'Desfazer' : 'Concluir'}
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>Deletar</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>

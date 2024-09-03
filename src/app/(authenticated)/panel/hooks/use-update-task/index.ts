@@ -30,14 +30,16 @@ export function useUpdateTask({ queryKey }: QueryKeyProps) {
   return useMutation({
     mutationFn: update,
     mutationKey: ['update-task'],
-    onMutate: async ({ task: { title, id } }) => {
+    onMutate: async ({ task: { title, content, id } }) => {
       await queryClient.cancelQueries({ queryKey })
 
       const previousTasks = queryClient.getQueryData<Task[]>(queryKey)
 
       queryClient.setQueryData(queryKey, (old?: Task[]) => {
         if (old) {
-          return old.map((task) => (task.id === id ? { ...task, title } : task))
+          return old.map((task) =>
+            task.id === id ? { ...task, title, content } : task,
+          )
         }
         return old
       })
