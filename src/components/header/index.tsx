@@ -1,6 +1,7 @@
 'use client'
 
 import { LogOut, MoonIcon, SunIcon } from 'lucide-react'
+import Link from 'next/link'
 import { signOut, useSession } from 'next-auth/react'
 import { useTheme } from 'next-themes'
 
@@ -21,7 +22,9 @@ export function Header() {
   return (
     <header className="fixed top-0 z-10 flex h-20 w-full items-center border-b bg-background px-8">
       <div className="z-40 mx-auto flex w-full max-w-7xl items-center justify-between">
-        <span className="text-2xl font-semibold">TASKS</span>
+        <Link href="/painel">
+          <span className="text-2xl font-semibold">TASKS</span>
+        </Link>
 
         <div className="flex gap-2">
           <DropdownMenu>

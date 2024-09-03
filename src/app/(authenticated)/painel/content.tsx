@@ -30,6 +30,7 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { useModal } from '@/hooks/use-modal'
 
+import { CardSkeleton } from './components/skeleton-card'
 import { FormOrganization } from './form'
 import { useDeleteTask } from './hooks/use-delete-task'
 import { useGetTasks } from './hooks/use-get-tasks'
@@ -37,7 +38,7 @@ import { useToggleStatusTask } from './hooks/use-toggle-status-task'
 import { Task } from './types'
 
 export function Content() {
-  const { data: tasks, queryKey } = useGetTasks()
+  const { data: tasks, isFetching, queryKey } = useGetTasks()
 
   const { mutateAsync: handleToggleStatusTask } = useToggleStatusTask({
     queryKey,
@@ -79,7 +80,7 @@ export function Content() {
           Adicionar TASK
         </Button>
 
-        {!tasks?.length && (
+        {!isFetching && !tasks?.length && (
           <span className="text-xl font-normal">
             📝 Nenhuma TASK encontrada. Adicione uma nova{' '}
             <span
@@ -91,6 +92,11 @@ export function Content() {
             para começar!
           </span>
         )}
+
+        {isFetching &&
+          Array.from({ length: 4 }, (_, key) => {
+            return <CardSkeleton key={key} />
+          })}
 
         {tasks?.map((task) => {
           const { completed, content, title, id } = task
@@ -148,7 +154,7 @@ export function Content() {
               </CardHeader>
 
               <CardContent>
-                <ScrollArea className="h-12">
+                <ScrollArea className="h-14">
                   <p className="text-base text-muted-foreground">{content}</p>
                 </ScrollArea>
               </CardContent>
