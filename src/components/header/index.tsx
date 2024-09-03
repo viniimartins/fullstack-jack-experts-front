@@ -17,8 +17,8 @@ export function Header() {
   const { data: session } = useSession()
 
   return (
-    <header className="tablet:w-screen fixed top-0 z-10 flex h-20 w-full items-center border-b bg-background px-8">
-      <div className="tablet:hidden z-40 flex w-full items-center justify-between">
+    <header className="fixed top-0 z-10 flex h-20 w-full items-center border-b bg-background px-8">
+      <div className="tablet:hidden z-40 mx-auto flex w-full max-w-7xl items-center justify-between">
         <span className="text-2xl font-semibold">TASKS</span>
 
         <div className="flex gap-2">

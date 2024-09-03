@@ -17,9 +17,9 @@ export default async function AuthenticatedLayout({
 }) {
   return (
     <main className="flex min-h-screen">
-      <section className="flex min-h-screen w-full flex-1 flex-col gap-8 overflow-auto pt-32">
-        <Header />
+      <Header />
 
+      <section className="mx-auto flex min-h-screen w-full max-w-7xl flex-1 flex-col gap-8 overflow-auto pt-32">
         {children}
       </section>
     </main>
