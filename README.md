@@ -38,7 +38,7 @@ npm install
 
 Crie um arquivo .env.local na raiz do projeto e adicione as variáveis de ambiente necessárias. Consulte o arquivo .env.example para saber quais variáveis são necessárias.
 
-4. Executar o Projeto
+### 4. Executar o Projeto
 Para iniciar o servidor de desenvolvimento, execute:
 
 ```bash
