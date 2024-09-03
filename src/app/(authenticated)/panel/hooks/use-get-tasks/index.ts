@@ -26,8 +26,9 @@ export function useGetTasks() {
     if (isError) {
       toast({
         variant: 'destructive',
-        title: 'erro',
-        description: 'erro',
+        title: 'Ops! Algo deu errado',
+        description:
+          'Ocorreu um erro no servidor. Por favor, tente novamente mais tarde.',
       })
     }
   }, [isError])

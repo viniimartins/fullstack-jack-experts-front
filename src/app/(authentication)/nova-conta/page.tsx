@@ -7,19 +7,19 @@ export const metadata: Metadata = {
   title: 'Login',
 }
 
-export default function Login() {
+export default function NewAccount() {
   return (
     <>
       <div className="flex flex-col space-y-2 text-center">
-        <h1 className="text-center text-3xl font-bold">TASKS</h1>
+        <h1 className="text-center text-3xl font-bold">Criar Conta</h1>
         <span className="text-sm text-muted-foreground">
-          Organize suas tarefas de maneira simples e eficiente!
+          Cadastre-se para acessar e gerenciar suas tarefas de forma eficiente.
         </span>
       </div>
       <div className="mx-auto w-full max-w-md">
         <FormLogin />
         <div className="mt-4 text-center text-sm">
-          <Link href="/nova-conta" className="underline">
+          <Link href="/new-account" className="underline">
             Nova Conta
           </Link>
         </div>

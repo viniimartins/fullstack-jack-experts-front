@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { QueryKey } from '@tanstack/react-query'
+import { LoaderCircle } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -37,7 +38,9 @@ interface Props {
 export function FormOrganization(props: Props) {
   const { formDialogActions, queryKey, toUpdateTask } = props
 
-  const { mutateAsync: handleCreatetask } = useCreateTask({ queryKey })
+  const { mutateAsync: handleCreatetask, isPending } = useCreateTask({
+    queryKey,
+  })
 
   const { mutateAsync: handleaUpdatetask } = useUpdateTask({ queryKey })
 
@@ -48,6 +51,10 @@ export function FormOrganization(props: Props) {
       content: toUpdateTask?.content || '',
     },
   })
+
+  const {
+    formState: { isSubmitting },
+  } = form
 
   async function onSubmit(task: ITaskForm) {
     if (toUpdateTask) {
@@ -72,6 +79,8 @@ export function FormOrganization(props: Props) {
       )
     }
   }
+
+  const isLoading = isSubmitting || isPending
 
   return (
     <div className="w-full">
@@ -107,7 +116,7 @@ export function FormOrganization(props: Props) {
 
           <Button type="submit" className="ml-auto flex gap-2">
             Salvar
-            {/* {isLoading && <LoaderCircle size={18} className="animate-spin" />} */}
+            {isLoading && <LoaderCircle size={18} className="animate-spin" />}
           </Button>
         </form>
       </Form>

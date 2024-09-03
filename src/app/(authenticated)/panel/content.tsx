@@ -20,6 +20,7 @@ import {
 import { useModal } from '@/hooks/use-modal'
 
 import { FormOrganization } from './form'
+import { useDeleteTask } from './hooks/use-delete-task'
 import { useGetTasks } from './hooks/use-get-tasks'
 import { useToggleStatusTask } from './hooks/use-toggle-status-task'
 import { Task } from './types'
@@ -30,6 +31,8 @@ export function Content() {
   const { mutateAsync: handleToggleStatusTask } = useToggleStatusTask({
     queryKey,
   })
+
+  const { mutateAsync: handleDeleteTask } = useDeleteTask({ queryKey })
 
   const {
     actions: formDialogActions,
@@ -47,6 +50,12 @@ export function Content() {
         >
           Adicionar Task
         </Button>
+
+        {!tasks?.length && (
+          <span className="text-xl font-semibold">
+            Parece que voce nao tem nenhuma tarefa
+          </span>
+        )}
 
         {tasks?.map((task) => {
           const { completed, content, title, id } = task
@@ -91,7 +100,13 @@ export function Content() {
                       >
                         {completed ? 'Desfazer' : 'Concluir'}
                       </DropdownMenuItem>
-                      <DropdownMenuItem>Deletar</DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => {
+                          handleDeleteTask({ taskId: id })
+                        }}
+                      >
+                        Deletar
+                      </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>

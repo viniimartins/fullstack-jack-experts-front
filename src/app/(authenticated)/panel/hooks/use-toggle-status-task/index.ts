@@ -45,8 +45,9 @@ export function useToggleStatusTask({ queryKey }: QueryKeyProps) {
 
       toast({
         variant: 'destructive',
-        title: 'Erro',
-        description: 'Erro',
+        title: 'Ops! Algo deu errado',
+        description:
+          'Ocorreu um erro no servidor. Por favor, tente novamente mais tarde.',
       })
     },
   })

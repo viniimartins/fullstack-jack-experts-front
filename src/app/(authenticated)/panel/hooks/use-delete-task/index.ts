@@ -4,27 +4,22 @@ import { toast } from '@/hooks/use-toast'
 import { api } from '@/service/api'
 import { QueryKeyProps } from '@/types/queryKeyProps'
 
-interface Task {
-  title: string
-  content: string
-}
-
 export interface Params {
-  task: Task
+  taskId: string
 }
 
-async function create({ task }: Params) {
-  const { data } = await api.post('/task', task)
+async function deleteTask({ taskId }: Params) {
+  const { data } = await api.delete(`/task/${taskId}`)
 
   return data
 }
 
-export function useCreateTask({ queryKey }: QueryKeyProps) {
+export function useDeleteTask({ queryKey }: QueryKeyProps) {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: create,
-    mutationKey: ['create-task'],
+    mutationFn: deleteTask,
+    mutationKey: ['delete-task'],
     onSuccess: () => queryClient.invalidateQueries({ queryKey }),
     onError: () => {
       toast({

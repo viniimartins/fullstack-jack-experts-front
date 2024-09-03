@@ -50,8 +50,9 @@ export function useUpdateTask({ queryKey }: QueryKeyProps) {
       queryClient.setQueryData(queryKey, context?.previousTasks)
       toast({
         variant: 'destructive',
-        title: 'Erro',
-        description: 'Erro ao atualizar a tarefa.',
+        title: 'Ops! Algo deu errado',
+        description:
+          'Ocorreu um erro no servidor. Por favor, tente novamente mais tarde.',
       })
     },
   })

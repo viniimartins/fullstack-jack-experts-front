@@ -21,10 +21,15 @@ import { toast } from '@/hooks/use-toast'
 
 const loginSchema = z.object({
   email: z
-    .string()
-    .email('Digite um email válido')
-    .min(1, 'Email é obrigatório'),
-  password: z.string().min(1, 'Senha é obrigatória'),
+    .string({ required_error: 'Este campo é obrigatório.' })
+    .email({ message: 'Insira um endereço de e-mail válido.' }),
+  password: z
+    .string({ required_error: 'Este campo é obrigatório' })
+    .min(8, { message: 'Deve ter pelo menos 8 caracteres.' })
+    .regex(/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, {
+      message:
+        'A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula e um número.',
+    }),
 })
 
 interface ILoginForm extends z.infer<typeof loginSchema> {}
@@ -77,7 +82,7 @@ export function FormLogin() {
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Escreva o email"
+                    placeholder="Digite seu e-mail"
                     type="email"
                     autoComplete="email"
                     {...field}
@@ -96,7 +101,7 @@ export function FormLogin() {
                 <FormLabel>Senha</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Digite a senha"
+                    placeholder="Digite sua senha"
                     type="password"
                     autoComplete="current-password"
                     {...field}

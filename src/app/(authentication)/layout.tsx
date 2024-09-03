@@ -1,13 +1,5 @@
-import { Metadata } from 'next'
 import Image from 'next/image'
 import type { ReactNode } from 'react'
-
-export const metadata: Metadata = {
-  title: {
-    template: `Obra Vista | %s`,
-    default: 'Obra Vista',
-  },
-}
 
 export default async function AuthenticationLayout({
   children,
