@@ -42,7 +42,7 @@ Crie um arquivo .env.local na raiz do projeto e adicione as variáveis de ambien
 Para iniciar o servidor de desenvolvimento, execute:
 
 ```bash
-docker compose up
+npm run dev
 ```
 
 O projeto estará disponível em http://localhost:3000.
