@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { LoaderCircle } from 'lucide-react'
-import { useRouter} from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
@@ -48,7 +48,6 @@ const createAccountSchema = z
 interface ICreateAccountForm extends z.infer<typeof createAccountSchema> {}
 
 export function FormLogin() {
-
   const router = useRouter()
 
   const { mutateAsync: handleCreateAccount, isPending } = useCreateAccount()
@@ -75,25 +74,24 @@ export function FormLogin() {
   }
 
   async function onSubmit({
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     confirm_password,
     ...rawAccount
   }: ICreateAccountForm) {
-
     handleCreateAccount(
       { account: rawAccount },
       {
         onSuccess: () => {
           toast({
-            variant : 'success',
+            variant: 'success',
             title: 'Conta criada com sucesso!',
-            description: 'Você pode agora fazer login e acessar seu painel.'
+            description: 'Você pode agora fazer login e acessar seu painel.',
           })
 
           router.push('/login')
         },
       },
     )
-
   }
 
   const isLoading = isPending || isSubmitting
